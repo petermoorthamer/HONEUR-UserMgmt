@@ -15,14 +15,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin()
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    UserService userService;
+    private UserService userService;
+
+    public UserController(@Autowired UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
+    @CrossOrigin(origins = "http://localhost:4200")
     public List<User> retrieveAllUsers() {
         return userService.findAll();
     }
@@ -48,8 +53,8 @@ public class UserController {
 
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<Object> updateStudent(@RequestBody User user, @PathVariable int id) {
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable int id) {
 
         User userEntity = userService.findById(id);
 
@@ -59,6 +64,21 @@ public class UserController {
         user.setId(id);
 
         userService.save(user);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Object> deleteUser(@RequestBody User user, @PathVariable int id) {
+
+        User userEntity = userService.findById(id);
+
+        if (userEntity == null)
+            return ResponseEntity.notFound().build();
+
+        user.setId(id);
+
+        //userService.delete(user);
 
         return ResponseEntity.noContent().build();
     }

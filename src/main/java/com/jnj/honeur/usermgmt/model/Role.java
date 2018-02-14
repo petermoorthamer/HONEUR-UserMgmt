@@ -21,7 +21,6 @@ public class Role implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<RolePermission> rolePermissions = new LinkedHashSet<>();
 
