@@ -1,8 +1,6 @@
 package com.jnj.honeur.usermgmt.config;
 
-import com.jnj.honeur.usermgmt.model.Permission;
-import com.jnj.honeur.usermgmt.model.Role;
-import com.jnj.honeur.usermgmt.model.User;
+import com.jnj.honeur.usermgmt.model.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
@@ -15,6 +13,8 @@ public class RestConfig extends RepositoryRestConfigurerAdapter {
         config.exposeIdsFor(User.class);
         config.exposeIdsFor(Role.class);
         config.exposeIdsFor(Permission.class);
+        config.exposeIdsFor(UserRole.class);
+        config.exposeIdsFor(RolePermission.class);
     }
 
 }
