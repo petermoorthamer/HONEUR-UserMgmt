@@ -1,6 +1,8 @@
 package com.jnj.honeur.usermgmt.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="SEC_ROLE")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Role.class)
 public class Role implements Serializable {
 
     @Id
@@ -21,11 +24,11 @@ public class Role implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<RolePermission> rolePermissions = new LinkedHashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private Set<UserRole> userRoles = new LinkedHashSet<>();
 
     public Integer getId() {

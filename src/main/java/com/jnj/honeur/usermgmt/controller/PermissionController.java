@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin()
+@CrossOrigin(origins = "http://localhost:4200")
 public class PermissionController {
 
     private static final Logger LOG = LoggerFactory.getLogger(PermissionController.class);
@@ -69,16 +69,14 @@ public class PermissionController {
     }
 
     @DeleteMapping("/permissions/{id}")
-    public ResponseEntity<Object> deletePermission(@RequestBody Permission permission, @PathVariable int id) {
+    public ResponseEntity<Object> deletePermission(@PathVariable int id) {
 
         Permission permissionEntity = permissionService.findById(id);
 
         if (permissionEntity == null)
             return ResponseEntity.notFound().build();
 
-        permission.setId(id);
-
-        //permissionService.delete(permission);
+        permissionService.delete(id);
 
         return ResponseEntity.noContent().build();
     }

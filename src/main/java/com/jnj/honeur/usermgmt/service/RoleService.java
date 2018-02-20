@@ -12,4 +12,6 @@ public interface RoleService {
 
     Role save(Role user);
 
+    void delete(Integer roleId);
+
 }

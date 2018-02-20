@@ -2,6 +2,7 @@ package com.jnj.honeur.usermgmt.controller;
 
 import com.jnj.honeur.usermgmt.exception.RoleNotFoundException;
 import com.jnj.honeur.usermgmt.model.Role;
+import com.jnj.honeur.usermgmt.model.RolePermission;
 import com.jnj.honeur.usermgmt.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,8 @@ public class RoleController {
 
     @PostMapping("/roles")
     public ResponseEntity<Object> createRole(@RequestBody Role role) {
+        initRolePermissions(role);
+
         Role savedRole = roleService.save(role);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -51,6 +54,12 @@ public class RoleController {
 
         return ResponseEntity.created(location).build();
 
+    }
+
+    private void initRolePermissions(final Role role) {
+        for(RolePermission rolePermission:role.getRolePermissions()) {
+            rolePermission.setRole(role);
+        }
     }
 
     @PatchMapping("/roles/{id}")
@@ -69,16 +78,15 @@ public class RoleController {
     }
 
     @DeleteMapping("/roles/{id}")
-    public ResponseEntity<Object> deleteRole(@RequestBody Role role, @PathVariable int id) {
+    public ResponseEntity<Object> deleteRole(@PathVariable int id) {
 
         Role roleEntity = roleService.findById(id);
 
         if (roleEntity == null)
             return ResponseEntity.notFound().build();
 
-        role.setId(id);
 
-        //roleService.delete(role);
+        roleService.delete(id);
 
         return ResponseEntity.noContent().build();
     }

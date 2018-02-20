@@ -40,4 +40,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public void delete(Integer userId) {
+        userRepository.delete(userId);
+    }
+
 }

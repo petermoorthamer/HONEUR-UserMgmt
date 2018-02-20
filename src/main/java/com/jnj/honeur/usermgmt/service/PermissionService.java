@@ -12,4 +12,6 @@ public interface PermissionService {
 
     Permission save(Permission user);
 
+    void delete(Integer permissionId);
+
 }

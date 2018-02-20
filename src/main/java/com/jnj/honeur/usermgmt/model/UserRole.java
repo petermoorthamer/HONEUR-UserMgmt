@@ -1,16 +1,11 @@
 package com.jnj.honeur.usermgmt.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
  * Links a {@link Role} to a {@link User}
@@ -19,6 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SEC_USER_ROLE")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = UserRole.class)
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 6257846375334314942L;
