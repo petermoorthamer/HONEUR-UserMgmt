@@ -1,16 +1,8 @@
 package com.jnj.honeur.usermgmt.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
  * Links a {@link Permission} to a {@link Role}
@@ -68,6 +60,9 @@ public class RolePermission implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RolePermission that = (RolePermission) o;
+        if(that.id == null) {
+            return false;
+        }
         return Objects.equals(id, that.id);
     }
 

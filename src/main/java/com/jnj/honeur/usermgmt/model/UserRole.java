@@ -66,6 +66,9 @@ public class UserRole implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserRole userRole = (UserRole) o;
+        if(userRole.id == null) {
+            return false;
+        }
         return Objects.equals(id, userRole.id);
     }
 
